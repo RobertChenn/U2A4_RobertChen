@@ -10,11 +10,15 @@ package com.mycompany.u2a4_robertchen;
  */
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 public class GroceryStore extends javax.swing.JFrame {
 
     /**
      * Creates new form GroceryStore
      */
+    ArrayList<Item> items = new ArrayList();
+    String[] options = {};
     public GroceryStore() {
         initComponents();
     }
@@ -28,10 +32,10 @@ public class GroceryStore extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        list = new javax.swing.JTextArea();
+        dropdown = new javax.swing.JComboBox<>();
         skuPrompt = new javax.swing.JLabel();
         sku = new javax.swing.JTextField();
         namePrompt = new javax.swing.JLabel();
@@ -53,23 +57,23 @@ public class GroceryStore extends javax.swing.JFrame {
         currentPricePrompt = new javax.swing.JLabel();
         currentPrice = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
+        subheading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel1.setText("Grocery Store Inventory");
+        title.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 51, 51));
+        title.setText("Grocery Store Inventory");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        list.setEditable(false);
+        list.setColumns(20);
+        list.setRows(5);
+        jScrollPane1.setViewportView(list);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        dropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dropdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                dropdownActionPerformed(evt);
             }
         });
 
@@ -95,9 +99,9 @@ public class GroceryStore extends javax.swing.JFrame {
 
         currentPricePrompt.setText("Current Price:");
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("Add to Grocery Store Inventory");
+        subheading.setFont(new java.awt.Font("Yu Gothic Medium", 1, 14)); // NOI18N
+        subheading.setForeground(new java.awt.Color(255, 51, 51));
+        subheading.setText("Add to Grocery Store Inventory");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,13 +112,13 @@ public class GroceryStore extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(174, 174, 174)
-                        .addComponent(jLabel1))
+                        .addComponent(title))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(dropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -162,18 +166,18 @@ public class GroceryStore extends javax.swing.JFrame {
                                         .addComponent(currentPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addComponent(jLabel2)))
+                        .addComponent(subheading)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jLabel1)
+                .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(skuPrompt)
@@ -207,16 +211,16 @@ public class GroceryStore extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(subheading)
                 .addContainerGap(260, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void dropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropdownActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_dropdownActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,13 +248,13 @@ public class GroceryStore extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GroceryStore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-//        try {
-//            BufferedWriter writer = new BufferedWriter(new FileWriter("inventory.txt"));
-//            writer.write("Test");
-//            writer.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("inventory.txt"));
+            writer.write("Test");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -267,12 +271,10 @@ public class GroceryStore extends javax.swing.JFrame {
     private javax.swing.JLabel currentPricePrompt;
     private javax.swing.JTextField discount;
     private javax.swing.JLabel discountPrompt;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<String> dropdown;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea list;
     private javax.swing.JTextField markupPercentage;
     private javax.swing.JLabel markupPercentagePrompt;
     private javax.swing.JTextField minimum;
@@ -285,6 +287,8 @@ public class GroceryStore extends javax.swing.JFrame {
     private javax.swing.JLabel regularPricePrompt;
     private javax.swing.JTextField sku;
     private javax.swing.JLabel skuPrompt;
+    private javax.swing.JLabel subheading;
+    private javax.swing.JLabel title;
     private javax.swing.JTextField vendorPrice;
     private javax.swing.JLabel vendorPricePrompt;
     // End of variables declaration//GEN-END:variables
