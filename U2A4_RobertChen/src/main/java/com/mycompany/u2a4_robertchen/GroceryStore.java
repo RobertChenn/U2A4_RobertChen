@@ -12,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import javax.swing.ButtonGroup;
+import java.io.File;
 public class GroceryStore extends javax.swing.JFrame {
 
     /**
@@ -19,8 +21,14 @@ public class GroceryStore extends javax.swing.JFrame {
      */
     ArrayList<Item> items = new ArrayList();
     String[] options = {};
+    String userInput, type, charO, charTw, charTh, charFo;
+    Character char1, char2, char3, char4, char5, char6, char7, char8;
+    int charFi, charSi, charSe, charE;
     public GroceryStore() {
         initComponents();
+        ButtonGroup group = new ButtonGroup();
+        group.add(skuType);
+        group.add(nameType);
     }
 
     /**
@@ -35,7 +43,6 @@ public class GroceryStore extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         list = new javax.swing.JTextArea();
-        dropdown = new javax.swing.JComboBox<>();
         skuPrompt = new javax.swing.JLabel();
         sku = new javax.swing.JTextField();
         namePrompt = new javax.swing.JLabel();
@@ -58,6 +65,13 @@ public class GroceryStore extends javax.swing.JFrame {
         currentPrice = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         subheading = new javax.swing.JLabel();
+        input = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
+        output = new javax.swing.JTextField();
+        prompt = new javax.swing.JLabel();
+        selectType = new javax.swing.JLabel();
+        skuType = new javax.swing.JToggleButton();
+        nameType = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,13 +83,6 @@ public class GroceryStore extends javax.swing.JFrame {
         list.setColumns(20);
         list.setRows(5);
         jScrollPane1.setViewportView(list);
-
-        dropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        dropdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropdownActionPerformed(evt);
-            }
-        });
 
         skuPrompt.setText("Stock Keeping Unit (SKU): ");
 
@@ -101,24 +108,46 @@ public class GroceryStore extends javax.swing.JFrame {
 
         subheading.setFont(new java.awt.Font("Yu Gothic Medium", 1, 14)); // NOI18N
         subheading.setForeground(new java.awt.Color(255, 51, 51));
-        subheading.setText("Add to Grocery Store Inventory");
+        subheading.setText("Change Grocery Store Inventory");
+
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+
+        prompt.setText("Enter a SKU/Name:");
+
+        selectType.setText("Select a Type to Search:");
+
+        skuType.setText("SKU");
+        skuType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                skuTypeActionPerformed(evt);
+            }
+        });
+
+        nameType.setText("Name");
+        nameType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameTypeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(174, 174, 174)
                         .addComponent(title))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-                                .addComponent(dropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -163,11 +192,25 @@ public class GroceryStore extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(currentPricePrompt)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(currentPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(currentPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(prompt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(search))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(selectType)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(skuType)
+                                .addGap(18, 18, 18)
+                                .addComponent(nameType))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
+                        .addGap(150, 150, 150)
                         .addComponent(subheading)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +219,17 @@ public class GroceryStore extends javax.swing.JFrame {
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectType)
+                    .addComponent(skuType)
+                    .addComponent(nameType))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search)
+                    .addComponent(prompt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(skuPrompt)
                     .addComponent(sku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,20 +259,71 @@ public class GroceryStore extends javax.swing.JFrame {
                     .addComponent(minimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(currentPricePrompt)
                     .addComponent(currentPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
+                .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(subheading)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropdownActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dropdownActionPerformed
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        userInput = input.getText();
+        
+        try {
+            if (type.equals("sku")) {
+                if (getChar(userInput)) {
+                    
+                }
+            } else if (type.equals("name")) {
+                
+            }
+        } catch(Exception e) {
+            output.setText("Please make sure that you formatted the SKU/Name correctly");
+        }
+    }//GEN-LAST:event_searchActionPerformed
 
+    private void skuTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skuTypeActionPerformed
+        prompt.setText("Enter a SKU:");
+        type = "sku";
+    }//GEN-LAST:event_skuTypeActionPerformed
+
+    private void nameTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTypeActionPerformed
+        prompt.setText("Enter a Name:");
+        type = "name";
+    }//GEN-LAST:event_nameTypeActionPerformed
+    // Gets the characters of the user input
+    public boolean getChar(String input) {
+//        char1 = input.charAt(0);
+//        char2 = input.charAt(1);
+//        char3 = input.charAt(2);
+        char4 = input.charAt(3);
+//        char5 = input.charAt(4);
+//        char6 = input.charAt(5);
+//        char7 = input.charAt(6);
+//        char8 = input.charAt(7);
+//        charO = Character.toString(char1).toUpperCase();
+//        charTw = Character.toString(char2).toUpperCase();
+//        charTh = Character.toString(char3).toUpperCase();
+        charFo = Character.toString(char4).toUpperCase();
+//        charFi = char5;
+//        charSi = char6;
+//        charSe = char7;
+//        charE = char8;
+        if (Character.isLetter(input.charAt(0)) && Character.isLetter(input.charAt(1)) &&
+                Character.isLetter(input.charAt(2)) && charFo.equals("-") && 
+                Character.isDigit(input.charAt(5)) && Character.isDigit(input.charAt(6)) && 
+                Character.isDigit(input.charAt(7))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -271,7 +373,7 @@ public class GroceryStore extends javax.swing.JFrame {
     private javax.swing.JLabel currentPricePrompt;
     private javax.swing.JTextField discount;
     private javax.swing.JLabel discountPrompt;
-    private javax.swing.JComboBox<String> dropdown;
+    private javax.swing.JTextField input;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea list;
@@ -281,12 +383,18 @@ public class GroceryStore extends javax.swing.JFrame {
     private javax.swing.JLabel minimumPrompt;
     private javax.swing.JTextField name;
     private javax.swing.JLabel namePrompt;
+    private javax.swing.JToggleButton nameType;
+    private javax.swing.JTextField output;
+    private javax.swing.JLabel prompt;
     private javax.swing.JTextField quantity;
     private javax.swing.JLabel quantityPrompt;
     private javax.swing.JTextField regularPrice;
     private javax.swing.JLabel regularPricePrompt;
+    private javax.swing.JButton search;
+    private javax.swing.JLabel selectType;
     private javax.swing.JTextField sku;
     private javax.swing.JLabel skuPrompt;
+    private javax.swing.JToggleButton skuType;
     private javax.swing.JLabel subheading;
     private javax.swing.JLabel title;
     private javax.swing.JTextField vendorPrice;
