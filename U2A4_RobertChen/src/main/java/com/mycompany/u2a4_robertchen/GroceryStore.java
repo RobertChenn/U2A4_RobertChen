@@ -401,7 +401,8 @@ public class GroceryStore extends javax.swing.JFrame {
                 i = 0;
             }
         } catch(Exception e) {
-            output.setText("Please make sure the fields are filled in and are formatted properly"); 
+            output.setText("Please make sure the fields are filled in and are formatted properly (only numbers for prices or percentages, "
+                    + "name cannot be more than 20 letters, and SKU is formatted like MEA-0001)"); 
         }
     }//GEN-LAST:event_addToInventoryActionPerformed
 
