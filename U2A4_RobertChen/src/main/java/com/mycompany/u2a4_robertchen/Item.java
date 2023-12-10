@@ -35,44 +35,52 @@ public class Item {
         this.currentPrice = currentPrice;
     }
     
-    // Gets the elements of the items
+    // Gets the SKU of the item
     public String getSKU() {
         return sku;
     }
-
+    
+    // Gets the name of the item
     public String getName() {
         return name;
     }
-
+    
+    // Gets the category of the item
     public String getCategory() {
         return category;
     }
-
+    
+    // Gets the quantity of the item
     public int getQuantity() {
         return quantity;
     }
-
+    
+    // Gets the minimum quantity of the item
     public int getMinQuantity() {
         return minQuantity;
     }
-
+    
+    // Gets the vendor price of the item
     public double getVendorPrice() {
         return vendorPrice;
     }
-
+    
+    // Gets the markup percentage of the item
     public double getMarkupPercentage() {
         return markupPercentage;
     }
     
+    // Gets the currrent discount percentage of the item
     public double getCurrentDiscount() {
         return currentDiscount;
     }
 
-    // Sets the elements of the items
+    // Sets the regular price of the item
     public double setRegularPrice(double vendorPrice, double markupPercentage) {
         return regularPrice = vendorPrice + (vendorPrice * markupPercentage);
     }
-
+    
+    // Sets the current price of the item
     public double setCurrentPrice(double regularPrice, double currentDiscount) {
         return currentPrice = regularPrice - (regularPrice * currentDiscount);
     }

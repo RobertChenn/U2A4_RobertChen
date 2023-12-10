@@ -25,8 +25,8 @@ public class GroceryStore extends javax.swing.JFrame {
     String[] options = {};
     String userInput, type, charO, charTw, charTh, charFo, skuInput, nameInput, categoryInput, quantityInput, minQuantityInput, vendorPriceInput,
             markupPercentageInput, currentDiscountInput;
-    Character char1, char2, char3, char4, char5, char6, char7, char8;
-    int charFi, charSi, charSe, charE, skuLength, nameLength, quantityInt, minQuantityInt, i = 0;
+    Character char1, char2, char3, char4;
+    int skuLength, nameLength, quantityInt, minQuantityInt, i = 0;
     double vendorPriceDouble, markupPercentageDouble, currentDiscountDouble, regularPrice, currentPrice;
     boolean valid = true;
     public GroceryStore() {
@@ -41,7 +41,7 @@ public class GroceryStore extends javax.swing.JFrame {
             BufferedReader reader = new BufferedReader(new FileReader("inventory.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] options = line.split(",");
+                options = line.split(",");
                 
                 Item item = new Item(options[0], options[1], options[2], Integer.parseInt(options[3]), Integer.parseInt(options[4]), 
                         Double.parseDouble(options[5]), Double.parseDouble(options[6]), Double.parseDouble(options[7]), 
