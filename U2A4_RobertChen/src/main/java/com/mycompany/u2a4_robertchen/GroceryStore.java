@@ -21,10 +21,14 @@ public class GroceryStore extends javax.swing.JFrame {
      * Creates new form GroceryStore
      */
     ArrayList<Item> items = new ArrayList();
+    ArrayList<Item> addedItem = new ArrayList();
     String[] options = {};
-    String userInput, type, charO, charTw, charTh, charFo;
+    String userInput, type, charO, charTw, charTh, charFo, skuInput, nameInput, categoryInput, quantityInput, minQuantityInput, vendorPriceInput,
+            markupPercentageInput, currentDiscountInput;
     Character char1, char2, char3, char4, char5, char6, char7, char8;
-    int charFi, charSi, charSe, charE;
+    int charFi, charSi, charSe, charE, skuLength, nameLength, quantityInt, minQuantityInt, i = 0;
+    double vendorPriceDouble, markupPercentageDouble, currentDiscountDouble, regularPrice, currentPrice;
+    boolean valid = true;
     public GroceryStore() {
         initComponents();
         ButtonGroup group = new ButtonGroup();
@@ -42,7 +46,6 @@ public class GroceryStore extends javax.swing.JFrame {
                 Item item = new Item(options[0], options[1], options[2], Integer.parseInt(options[3]), Integer.parseInt(options[4]), 
                         Double.parseDouble(options[5]), Double.parseDouble(options[6]), Double.parseDouble(options[7]), 
                         Double.parseDouble(options[8]), Double.parseDouble(options[9]));
-                list.setText(item.toString());
                 items.add(item);
             }
             reader.close();
@@ -53,7 +56,7 @@ public class GroceryStore extends javax.swing.JFrame {
     
     public void writeToFile(Item item) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("inventory.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("inventory.txt", true));
             writer.write(item.toString());
             writer.close();
         } catch (IOException e) {
@@ -77,8 +80,6 @@ public class GroceryStore extends javax.swing.JFrame {
         sku = new javax.swing.JTextField();
         namePrompt = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        categoryPrompt = new javax.swing.JLabel();
-        category = new javax.swing.JTextField();
         quantityPrompt = new javax.swing.JLabel();
         quantity = new javax.swing.JTextField();
         minimumPrompt = new javax.swing.JLabel();
@@ -87,12 +88,8 @@ public class GroceryStore extends javax.swing.JFrame {
         vendorPrice = new javax.swing.JTextField();
         markupPercentagePrompt = new javax.swing.JLabel();
         markupPercentage = new javax.swing.JTextField();
-        regularPricePrompt = new javax.swing.JLabel();
-        regularPrice = new javax.swing.JTextField();
         discountPrompt = new javax.swing.JLabel();
         discount = new javax.swing.JTextField();
-        currentPricePrompt = new javax.swing.JLabel();
-        currentPrice = new javax.swing.JTextField();
         input = new javax.swing.JTextField();
         search = new javax.swing.JButton();
         output = new javax.swing.JTextField();
@@ -100,8 +97,8 @@ public class GroceryStore extends javax.swing.JFrame {
         selectType = new javax.swing.JLabel();
         skuType = new javax.swing.JToggleButton();
         nameType = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        addToInventory = new javax.swing.JButton();
+        saveToFile = new javax.swing.JButton();
         displayInventory = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,21 +116,15 @@ public class GroceryStore extends javax.swing.JFrame {
 
         namePrompt.setText("Name:");
 
-        categoryPrompt.setText("Category:");
-
         quantityPrompt.setText("Quantity:");
 
-        minimumPrompt.setText("Minimum:");
+        minimumPrompt.setText("Minimum Quantity:");
 
         vendorPricePrompt.setText("Vendor Price:");
 
         markupPercentagePrompt.setText("Markup Percentage:");
 
-        regularPricePrompt.setText("Regular Price:");
-
-        discountPrompt.setText("Discount Percentage:");
-
-        currentPricePrompt.setText("Current Price:");
+        discountPrompt.setText("Current Discount Percentage:");
 
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +132,8 @@ public class GroceryStore extends javax.swing.JFrame {
                 searchActionPerformed(evt);
             }
         });
+
+        output.setEditable(false);
 
         prompt.setText("Enter a SKU/Name:");
 
@@ -160,11 +153,26 @@ public class GroceryStore extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Add to Inventory");
+        addToInventory.setText("Add to Inventory");
+        addToInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToInventoryActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Save to File");
+        saveToFile.setText("Save to File");
+        saveToFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveToFileActionPerformed(evt);
+            }
+        });
 
         displayInventory.setText("Display Inventory");
+        displayInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayInventoryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,57 +187,6 @@ public class GroceryStore extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(skuPrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(sku, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(namePrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(quantityPrompt)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(quantity))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(minimumPrompt)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(minimum))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(categoryPrompt)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(regularPricePrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(regularPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(markupPercentagePrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(markupPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(vendorPricePrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(vendorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(discountPrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(currentPricePrompt)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(currentPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addGap(121, 121, 121))))
                             .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -245,7 +202,48 @@ public class GroceryStore extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(search))))))
+                                    .addComponent(search)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(minimumPrompt)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(minimum, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(skuPrompt)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(sku, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(addToInventory)
+                                            .addGap(12, 12, 12)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(69, 69, 69)
+                                            .addComponent(saveToFile))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(54, 54, 54)
+                                            .addComponent(vendorPricePrompt)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(vendorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(54, 54, 54)
+                                            .addComponent(markupPercentagePrompt)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(markupPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(54, 54, 54)
+                                            .addComponent(discountPrompt)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(namePrompt)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(quantityPrompt)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -267,39 +265,40 @@ public class GroceryStore extends javax.swing.JFrame {
                     .addComponent(search)
                     .addComponent(prompt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(skuPrompt)
+                            .addComponent(sku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(namePrompt)
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(quantityPrompt)
+                            .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(minimumPrompt)
+                            .addComponent(minimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(vendorPricePrompt)
+                            .addComponent(vendorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(markupPercentagePrompt)
+                            .addComponent(markupPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(discountPrompt)
+                            .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(skuPrompt)
-                    .addComponent(sku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vendorPricePrompt)
-                    .addComponent(vendorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(namePrompt)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(markupPercentagePrompt)
-                    .addComponent(markupPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoryPrompt)
-                    .addComponent(regularPricePrompt)
-                    .addComponent(regularPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantityPrompt)
-                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(discountPrompt)
-                    .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(minimumPrompt)
-                    .addComponent(minimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(currentPricePrompt)
-                    .addComponent(currentPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(addToInventory)
+                    .addComponent(saveToFile))
                 .addGap(18, 18, 18)
                 .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -310,17 +309,40 @@ public class GroceryStore extends javax.swing.JFrame {
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         userInput = input.getText();
+        readFile();
         
         try {
             if (type.equals("sku")) {
-                if (getChar(userInput)) {
-                    
+                skuLength = userInput.length();
+                if (getChar(userInput) && skuLength == 8) {
+                    for (int i = 0; i < items.size(); i++) {
+                        if (userInput.equals(items.get(i).getSKU())) {
+                            output.setText("Item: " + items.get(i).toString());
+                            break;
+                        } else {
+                            output.setText("This item does not exist in the inventory");
+                        }
+                    }
+                } else {
+                    output.setText("Please make sure the SKU is formatted properly (e.g. MEA-0001)");
                 }
             } else if (type.equals("name")) {
-                
+                nameLength = userInput.length();
+                if (nameLength <= 20) {
+                    for (int x = 0; x < items.size(); x++) {
+                        if (userInput.equals(items.get(x).getName())) {
+                            output.setText("Item: " + items.get(x).toString());
+                            break;
+                        } else {
+                            output.setText("This item does not exist in the inventory");
+                        }
+                    }
+                } else {
+                    output.setText("Name cannot have more than 20 characters");
+                }
             }
         } catch(Exception e) {
-            output.setText("Please make sure that you formatted the SKU/Name correctly");
+            output.setText("Please make sure the SKU/Name field is filled out and is formatted properly (e.g. MEA-0001 or less than 21 characters)"); 
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -333,31 +355,155 @@ public class GroceryStore extends javax.swing.JFrame {
         prompt.setText("Enter a Name:");
         type = "name";
     }//GEN-LAST:event_nameTypeActionPerformed
+
+    private void displayInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayInventoryActionPerformed
+        list.setText("");
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("inventory.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                list.append(line + "\n");
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_displayInventoryActionPerformed
+
+    private void addToInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToInventoryActionPerformed
+        readFile();
+        addedItem.clear();
+        
+        try {
+            skuInput = sku.getText();
+            nameInput = name.getText();
+            nameLength = nameInput.length();
+            quantityInput = quantity.getText();
+            quantityInt = Integer.parseInt(quantityInput);
+            minQuantityInput = minimum.getText();
+            minQuantityInt = Integer.parseInt(minQuantityInput);
+            vendorPriceInput = vendorPrice.getText();
+            vendorPriceDouble = Double.parseDouble(vendorPriceInput);
+            markupPercentageInput = markupPercentage.getText();
+            markupPercentageDouble = Double.parseDouble(markupPercentageInput);
+            currentDiscountInput = discount.getText();
+            currentDiscountDouble = Double.parseDouble(currentDiscountInput);
+            if (isValid(skuInput, nameInput, nameLength, quantityInt, minQuantityInt, 
+                    vendorPriceDouble, markupPercentageDouble, currentDiscountDouble) && valid == true) {
+                setCategory();
+                Item newItem = new Item(skuInput, nameInput, categoryInput, quantityInt, minQuantityInt,
+                        vendorPriceDouble, markupPercentageDouble, regularPrice, currentDiscountDouble, currentPrice);
+                regularPrice = newItem.setRegularPrice(vendorPriceDouble, markupPercentageDouble);
+                currentPrice = newItem.setCurrentPrice(regularPrice, currentDiscountDouble);
+                addedItem.add(newItem);
+                items.add(newItem);
+                output.setText("Added to inventory");
+                i = 0;
+            }
+        } catch(Exception e) {
+            output.setText("Please make sure the fields are filled in and are formatted properly"); 
+        }
+    }//GEN-LAST:event_addToInventoryActionPerformed
+
+    private void saveToFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveToFileActionPerformed
+        if (i == 0) {
+            writeToFile(addedItem.get(0));
+            output.setText("Item has been saved to the file");
+        } else {
+            output.setText("This item has already been saved to the file");
+        }
+        i = 1;
+    }//GEN-LAST:event_saveToFileActionPerformed
     // Gets the characters of the user input
     public boolean getChar(String input) {
-//        char1 = input.charAt(0);
-//        char2 = input.charAt(1);
-//        char3 = input.charAt(2);
         char4 = input.charAt(3);
-//        char5 = input.charAt(4);
-//        char6 = input.charAt(5);
-//        char7 = input.charAt(6);
-//        char8 = input.charAt(7);
-//        charO = Character.toString(char1).toUpperCase();
-//        charTw = Character.toString(char2).toUpperCase();
-//        charTh = Character.toString(char3).toUpperCase();
         charFo = Character.toString(char4).toUpperCase();
-//        charFi = char5;
-//        charSi = char6;
-//        charSe = char7;
-//        charE = char8;
         if (Character.isLetter(input.charAt(0)) && Character.isLetter(input.charAt(1)) &&
                 Character.isLetter(input.charAt(2)) && charFo.equals("-") && 
                 Character.isDigit(input.charAt(5)) && Character.isDigit(input.charAt(6)) && 
                 Character.isDigit(input.charAt(7))) {
-            return true;
+            if (Character.isUpperCase(input.charAt(0)) && Character.isUpperCase(input.charAt(1)) &&
+                Character.isUpperCase(input.charAt(2))) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
+        }
+    }
+    
+    // Checks if all the inputs are valid to be added as an item
+    public boolean isValid(String input, String name, int nameLength, int quantity, int minQuantity, double vendorPrice,
+            double markupPercentage, double currentDiscount) {
+        char1 = input.charAt(0);
+        char2 = input.charAt(1);
+        char3 = input.charAt(2);
+        charO = Character.toString(char1).toUpperCase();
+        charTw = Character.toString(char2).toUpperCase();
+        charTh = Character.toString(char3).toUpperCase();
+        if (getChar(input) == false) {
+            output.setText("Please make sure the SKU is formatted properly (e.g. MEA-0001)");
+            return false;
+        }
+        if (!charO.equals("V") && !charO.equals("F") && !charO.equals("M")) {
+            output.setText("SKU must start with either VEG, MEA, or FRU");
+            return false;
+        }
+        if (!charTw.equals("E") && !charTw.equals("R")) {
+            output.setText("SKU must start with either VEG, MEA, or FRU");
+            return false;
+        }
+        if (!charTh.equals("G") && !charTh.equals("U") && !charTh.equals("A")) {
+            output.setText("SKU must start with either VEG, MEA, or FRU");
+            return false;
+        }
+        if (nameLength > 20) {
+            output.setText("Name cannot have more than 20 characters");
+            return false;
+        }
+        if (quantity < minQuantity) {
+            output.setText("Quantity cannot be less than minimum quantity");
+            return false;
+        }
+        if (vendorPrice < 0) {
+            output.setText("Vendor price cannot be less than zero");
+            return false;
+        }
+        if (markupPercentage < 0) {
+            output.setText("Markup percentage cannot be less than zero");
+            return false;
+        }
+        if (currentDiscount < 0) {
+            output.setText("Current discount percentage cannot be less than zero");
+            return false;
+        }
+        
+        for (int n = 0; n < items.size(); n++) {
+            if (skuInput.equals(items.get(n).getSKU()) && nameInput.equals(items.get(n).getName())) {
+                output.setText("An item with this SKU and name already exists");
+                return false;
+            } else if (skuInput.equals(items.get(n).getSKU())) {
+                output.setText("An item with this SKU already exists");
+                return false;
+            } else if (nameInput.equals(items.get(n).getName())) {
+                output.setText("An item with this name already exists");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    // Sets the category based on the SKU
+    public String setCategory() {
+        if (charO.equals("V") && charTw.equals("E") && charTh.equals("G")) {
+            return categoryInput = "VEGETABLE";
+        } else if (charO.equals("F") && charTw.equals("R") && charTh.equals("U")) {
+            return categoryInput = "FRUIT";
+        } else if (charO.equals("M") && charTw.equals("E") && charTh.equals("A")) {
+            return categoryInput = "MEAT";
+        } else {
+            return categoryInput = "filler";
         }
     }
     
@@ -397,16 +543,11 @@ public class GroceryStore extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField category;
-    private javax.swing.JLabel categoryPrompt;
-    private javax.swing.JTextField currentPrice;
-    private javax.swing.JLabel currentPricePrompt;
+    private javax.swing.JButton addToInventory;
     private javax.swing.JTextField discount;
     private javax.swing.JLabel discountPrompt;
     private javax.swing.JButton displayInventory;
     private javax.swing.JTextField input;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea list;
     private javax.swing.JTextField markupPercentage;
@@ -420,8 +561,7 @@ public class GroceryStore extends javax.swing.JFrame {
     private javax.swing.JLabel prompt;
     private javax.swing.JTextField quantity;
     private javax.swing.JLabel quantityPrompt;
-    private javax.swing.JTextField regularPrice;
-    private javax.swing.JLabel regularPricePrompt;
+    private javax.swing.JButton saveToFile;
     private javax.swing.JButton search;
     private javax.swing.JLabel selectType;
     private javax.swing.JTextField sku;

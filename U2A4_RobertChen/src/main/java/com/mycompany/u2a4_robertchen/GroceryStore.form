@@ -33,74 +33,6 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="skuPrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="sku" min="-2" pref="72" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="namePrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="name" min="-2" pref="72" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="quantityPrompt" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="quantity" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="minimumPrompt" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="minimum" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="categoryPrompt" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="category" min="-2" pref="72" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="regularPricePrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="regularPrice" min="-2" pref="72" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="markupPercentagePrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="markupPercentage" min="-2" pref="72" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="vendorPricePrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="vendorPrice" min="-2" pref="72" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="discountPrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="discount" min="-2" pref="75" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="currentPricePrompt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="currentPrice" min="-2" pref="73" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
                           <Component id="output" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -118,6 +50,60 @@
                                   <Component id="input" min="-2" pref="290" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="search" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="minimumPrompt" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="minimum" min="-2" pref="107" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="skuPrompt" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="sku" min="-2" pref="72" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="addToInventory" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                                          <Component id="saveToFile" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                          <Component id="vendorPricePrompt" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="vendorPrice" min="-2" pref="72" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                          <Component id="markupPercentagePrompt" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="markupPercentage" min="-2" pref="72" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                          <Component id="discountPrompt" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="discount" min="-2" pref="59" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="namePrompt" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="name" min="-2" pref="108" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="quantityPrompt" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="quantity" min="-2" pref="71" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -148,44 +134,50 @@
                   <Component id="prompt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="skuPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sku" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="vendorPricePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="vendorPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="skuPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sku" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="namePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="quantityPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="quantity" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="minimumPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="minimum" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="vendorPricePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="vendorPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="markupPercentagePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="markupPercentage" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="discountPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="discount" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="namePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="markupPercentagePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="markupPercentage" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="category" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="categoryPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="regularPricePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="regularPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="quantityPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="quantity" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="discountPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="discount" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="minimumPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="minimum" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="currentPricePrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="currentPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addToInventory" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="saveToFile" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="output" min="-2" max="-2" attributes="0"/>
@@ -236,13 +228,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="name">
     </Component>
-    <Component class="javax.swing.JLabel" name="categoryPrompt">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Category:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="category">
-    </Component>
     <Component class="javax.swing.JLabel" name="quantityPrompt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Quantity:"/>
@@ -252,7 +237,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="minimumPrompt">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Minimum:"/>
+        <Property name="text" type="java.lang.String" value="Minimum Quantity:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="minimum">
@@ -271,26 +256,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="markupPercentage">
     </Component>
-    <Component class="javax.swing.JLabel" name="regularPricePrompt">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Regular Price:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="regularPrice">
-    </Component>
     <Component class="javax.swing.JLabel" name="discountPrompt">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Discount Percentage:"/>
+        <Property name="text" type="java.lang.String" value="Current Discount Percentage:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="discount">
-    </Component>
-    <Component class="javax.swing.JLabel" name="currentPricePrompt">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Current Price:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="currentPrice">
     </Component>
     <Component class="javax.swing.JTextField" name="input">
     </Component>
@@ -303,6 +274,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="output">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="prompt">
       <Properties>
@@ -330,20 +304,29 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameTypeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="addToInventory">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to Inventory"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToInventoryActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="saveToFile">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save to File"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveToFileActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="displayInventory">
       <Properties>
         <Property name="text" type="java.lang.String" value="Display Inventory"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayInventoryActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

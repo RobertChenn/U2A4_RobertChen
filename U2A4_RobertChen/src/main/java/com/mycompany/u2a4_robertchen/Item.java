@@ -15,13 +15,13 @@ public class Item {
     private int quantity;
     private int minQuantity;
     private double vendorPrice;
-    private double markupPercetange;
+    private double markupPercentage;
     private double regularPrice;
     private double currentDiscount;
     private double currentPrice;
     
     public Item(String sku, String name, String category,
-            int quantity, int minQuantity, double vendorPrice, double markupPercetange, double regularPrice, 
+            int quantity, int minQuantity, double vendorPrice, double markupPercentage, double regularPrice, 
             double currentDiscount, double currentPrice) {
         this.sku = sku;
         this.name = name;
@@ -29,7 +29,7 @@ public class Item {
         this.quantity = quantity;
         this.minQuantity = minQuantity;
         this.vendorPrice = vendorPrice;
-        this.markupPercetange = markupPercetange;
+        this.markupPercentage = markupPercentage;
         this.regularPrice = regularPrice;
         this.currentDiscount = currentDiscount;
         this.currentPrice = currentPrice;
@@ -61,65 +61,25 @@ public class Item {
     }
 
     public double getMarkupPercentage() {
-        return markupPercetange;
+        return markupPercentage;
     }
-
-    public double getRegularPrice() {
-        return regularPrice;
-    }
-
+    
     public double getCurrentDiscount() {
         return currentDiscount;
     }
 
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
-
     // Sets the elements of the items
-    public void setSKU(String SKU) {
-        this.sku = SKU;
+    public double setRegularPrice(double vendorPrice, double markupPercentage) {
+        return regularPrice = vendorPrice + (vendorPrice * markupPercentage);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setMinQuantity(int minQuantity) {
-        this.minQuantity = minQuantity;
-    }
-
-    public void setVendorPrice(double vendorPrice) {
-        this.vendorPrice = vendorPrice;
-    }
-
-    public void setMarkupPercent(double markupPercetange) {
-        this.markupPercetange = markupPercetange;
-    }
-
-    public void setRegularPrice(double regularPrice) {
-        this.regularPrice = regularPrice;
-    }
-
-    public void setCurrentDiscount(double currentDiscount) {
-        this.currentDiscount = currentDiscount;
-    }
-
-    public void setCurrentPrice(double currentPrice) {
-        this.currentPrice = currentPrice;
+    public double setCurrentPrice(double regularPrice, double currentDiscount) {
+        return currentPrice = regularPrice - (regularPrice * currentDiscount);
     }
     
     @Override
     public String toString() {
         return sku + "," + name + "," + category + "," + quantity + "," + minQuantity + "," + vendorPrice + 
-                "," + markupPercetange + "," + regularPrice + "," + currentDiscount + "," + currentPrice + "\n";
+                "," + markupPercentage + "," + regularPrice + "," + currentDiscount + "," + currentPrice + "\n";
     }
 }
